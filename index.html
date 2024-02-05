@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Instructions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #3498db;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        header img {
+            max-width: 100%; /* Make sure the logo is responsive */
+            height: 45px;
+            
+        }
+        .instructions{
+            margin-top: 230px;
+        }
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1001;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        #main-content {
+            margin-top: 60px;
+            margin-left: 0;
+            transition: margin-left 0.5s;
+            padding: 16px;
+        }
+
+        /* Add media query for responsiveness */
+        @media screen and (max-width: 768px) {
+            header img {
+                width: 120px;
+            }
+            .sidebar a {
+                font-size: 16px;
+            }
+        }
+        h1, h2 {
+            color: #333;
+        }
+
+        button {
+            font-size: 14px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            z-index: 1001; /* Set a higher z-index for the buttons */
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #instructions {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .zone {
+            margin-top: 40px;
+        }
+
+        .hospital {
+            cursor: pointer;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px;
+            display: inline-block;
+            background-color: #ecf0f1;
+            transition: background-color 0.3s;
+        }
+
+        .hospital:hover {
+            background-color: #dce1e3;
+        }
+        #update-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            z-index: 1000;
+        }
+
+        #update-content {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        @media screen and (max-width: 768px) {
+            header {
+                flex-direction: column; /* Stack elements vertically on smaller screens */
+                align-items: flex-start;
+            }
+
+            span.menu-icon {
+                display: block; /* Show the menu icon on smaller screens */
+            }
+
+            button {
+                font-size: 14px; /* Adjusted font size for smaller screens */
+            }
+        }
+    </style>
+<script>
+        function showInstructions(category) {
+            var instructions = document.getElementById('instructions');
+            instructions.style.display = 'block';
+
+            switch (category) {
+                // ... (unchanged)
+                case 'appointment':
+                    instructions.innerHTML = 'These are the instructions for scheduling an appointment.';
+                    break;
+                case 'business':
+                    instructions.innerHTML = 'These are the instructions for a business appointment.';
+                    break;
+                case 'non-business':
+                    instructions.innerHTML = 'These are the instructions for a non-business appointment.';
+                    break;
+                case 'l2transfer':
+                    instructions.innerHTML = 'These are the instructions for L2 transfer.';
+                    break;
+                    case 'High End Surgery':
+                    instructions.innerHTML = 'These are the instructions for High End Surgery.';
+                    break;
+                    case 'Dr devi Prasad shetty apppointment':
+                    instructions.innerHTML = 'These are the instructions for Dr devi Prasad shetty apppointment.';
+                    break;
+                    case 'Types of Medical Query':
+                    instructions.innerHTML = 'These are the instructions for Types of Medical Query.';
+                    break;
+                    case 'Bangladesh Appointment':
+                    instructions.innerHTML = 'These are the instructions for Banngladest appointment.';
+                    break;
+                
+            }
+
+            // Scroll to the instructions
+            instructions.scrollIntoView({ behavior: 'smooth' });
+        }
+
+
+        function showHospitalUpdates(zone, hospital) {
+            var updates = getHospitalUpdates(zone, hospital);
+            var instructions = document.getElementById('instructions');
+            instructions.style.display = 'block';
+            instructions.innerHTML = updates;
+
+            // Scroll to the updates
+            instructions.scrollIntoView({ behavior: 'smooth' });
+        }
+// Object to store hospital updates
+        var hospitalUpdates = {
+            'East': {
+                'Hospital 1': 'Update for Hospital 1 in the East zone hhdhd.',
+                'Hospital 2': 'Update for Hospital 2 in the East zone kamlqks.',
+                'Hospital 1': 'Update for Hospital 1 in the East zone hhdhd.',
+                'Hospital 2': 'Update for Hospital 2 in the East zone kamlqks.',
+                'Hospital 1': 'Update for Hospital 1 in the East zone hhdhd.',
+                'Hospital 2': 'Update for Hospital 2 in the East zone kamlqks.',
+                'Hospital 1': 'Update for Hospital 1 in the East zone hhdhd.',
+                'Hospital 2': 'Update for Hospital 2 in the East zone kamlqks.',
+                'Hospital 1': 'Update for Hospital 1 in the East zone hhdhd.',
+                'Hospital 2': 'Update for Hospital 2 in the East zone kamlqks.',
+                'Hospital 1': 'Update for Hospital 1 in the East zone hhdhd.',
+                'Hospital 2': 'Update for Hospital 2 in the East zone kamlqks.',
+                'Hospital 1': 'Update for Hospital 1 in the East zone hhdhd.',
+                'Hospital 2': 'Update for Hospital 2 in the East zone kamlqks.',
+                'Hospital 1': 'Update for Hospital 1 in the East zone hhdhd.',
+                'Hospital 2': 'Update for Hospital 2 in the East zone kamlqks.',
+                'Hospital 1': 'Update for Hospital 1 in the East zone hhdhd.',
+                'Hospital 2': 'Update for Hospital 2 in the East zone kamlqks.',
+            
+            },
+            'West': {
+                'Hospital A': 'Update for Hospital A in the West zone.',
+                'Hospital B': 'Update for Hospital B in the West zone.'
+            },
+            'North': {
+                'Hospital Y': 'Update for Hospital Y in the North zone.',
+                'Hospital X': 'Update for Hospital X in the North zone.',
+                'Hospital Y': 'Update for Hospital Y in the North zone.',
+                'Hospital X': 'Update for Hospital X in the North zone.',
+                'Hospital Y': 'Update for Hospital Y in the North zone.',
+            },
+            'South': {
+                ' NICS': 'Update for NICS in the South zone.',
+                ' MSMC': 'Update for MSMC in the South zone.',
+                'HSR Hospital ( HSR CLUB)': 'Update for HSR Hospital ( HSR CLUB) in the South zone.',
+                'Hospital Q': 'Update for MSMC in the South zone.',
+                'Hospital P': 'Update for NICS in the South zone.',
+                'Hospital Q': 'Update for MSMC in the South zone.',
+                'Hospital Q': 'Update for MSMC in the South zone.',
+                'Hospital P': 'Update for NICS in the South zone.',
+                'Hospital Q': 'Update for MSMC in the South zone.',
+                'Hospital Q': 'Update for MSMC in the South zone.',
+                'Hospital P': 'Update for NICS in the South zone.',
+                'Hospital Q': 'Update for MSMC in the South zone.',
+                'Hospital Q': 'Update for MSMC in the South zone.',
+                'Hospital P': 'Update for NICS in the South zone.',
+                'Hospital Q': 'Update for MSMC in the South zone.',
+                'Hospital Q': 'Update for MSMC in the South zone.',
+                'Hospital P': 'Update for NICS in the South zone.',
+                'Hospital Q': 'Update for MSMC in the South zone.',
+                
+            }
+        }
+        function getHospitalUpdates(zone, hospital) {
+            // ... (unchanged)
+            var update = hospitalUpdates[zone] && hospitalUpdates[zone][hospital];
+            
+            // Check if the update is available, otherwise provide a default message
+            return update ? update : `No update available for ${hospital} in the ${zone} zone.`;
+        }
+        function showSpecialities() {
+        var instructions = document.getElementById('instructions');
+        instructions.style.display = 'block';
+
+        // You can customize the specialities and their definitions here
+        var specialities = {
+            'Speciality 1': 'Definition for Speciality 1. Example: Lorem ipsum...',
+            'Speciality 2': 'Definition for Speciality 2. Example: Lorem ipsum...',
+            // Add more specialities as needed
+        };
+
+        // Create a list of links for each speciality
+        var specialitiesList = '<ul>';
+        for (var speciality in specialities) {
+            specialitiesList += `<li><a href="#" onclick="showSpecialityDefinition('${speciality}')">${speciality}</a></li>`;
+        }
+        specialitiesList += '</ul>';
+
+        // Display the list of specialities
+        instructions.innerHTML = specialitiesList;
+
+        // Scroll to the instructions
+        instructions.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showSpecialityDefinition(speciality) {
+        var instructions = document.getElementById('instructions');
+
+        // You can customize the speciality definitions and examples here
+        var specialityDefinitions = {
+            'Speciality 1': 'Definition for Speciality 1. Example: Lorem ipsum...',
+            'Speciality 2': 'Definition for Speciality 2. Example: Lorem ipsum...',
+            // Add more specialities as needed
+        };
+
+        // Display the definition and example for the selected speciality
+        instructions.innerHTML = specialityDefinitions[speciality];
+
+        // Scroll to the instructions
+        instructions.scrollIntoView({ behavior: 'smooth' });
+    }
+    function showUpdatePage() {
+            var updatePage = document.getElementById('update-page');
+            updatePage.style.display = 'block';
+        }
+
+        function hideUpdatePage() {
+            var updatePage = document.getElementById('update-page');
+            updatePage.style.display = 'none';
+        }
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main-content").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main-content").style.marginLeft = "0";
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <img src="logo.jpg" alt="Your Logo">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+        <button onclick="showUpdatePage()">New Update</button>
+        <button onclick="showInstructions('holidays-list')">Holidays List</button>
+        <button onclick="showSpecialities()">Specialities</button>
+    </header>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Team</a>
+        <a href="#">About</a>
+        <a href="#">Briefing</a>
+        <a href="#">Rosters</a>
+        <a href="#">Home</a>
+        <a href="#" onclick="closeNav()">Back</a>
+    </div>
+    
+    <div class="instructions">
+    <h1>Appointment Instructions</h1>
+
+    <button onclick="showInstructions('appointment')">Appointment Booking</button>
+    <button onclick="showInstructions('business')">Business Process</button>
+    <button onclick="showInstructions('non-business')">Non-Business Process</button>
+    <button onclick="showInstructions('High End Surgery')">High End Surgery</button>
+    <button onclick="showInstructions('Dr devi Prasad shetty apppointment')">Dr Devi Prasad Shetty Appointment</button>
+    <button onclick="showInstructions('Types of Medical Query')">Types of Medical Query</button>
+    <button onclick="showInstructions('Types of Non-medical query')">Non-medical query</button>
+    <button onclick="showInstructions('Bangladesh appointment')">Bangladesh Appointment</button>
+</div>
+    <h1>Hospital Updates</h1>
+    
+
+    <!-- East Zone -->
+    <div class="zone">
+        <h2>East Zone</h2>
+        <div class="hospital" onclick="showHospitalUpdates('East', 'Kolkata Mukundapur- RTIICS -E M Bypass')">Kolkata Mukundapur- RTIICS -E M Bypass</div>
+        <div class="hospital" onclick="showHospitalUpdates('East', 'Hospital 2')">Kolkata Sarat Bose Road- Clinic</div>
+        <div class="hospital" onclick="showHospitalUpdates('East', 'Hospital 1')">Kolkata Highland park- Surgical center</div>
+        <div class="hospital" onclick="showHospitalUpdates('East', 'Hospital 2')">Kasba Clinic</div>
+        <div class="hospital" onclick="showHospitalUpdates('East', 'Hospital 1')">Barasat - Jessore road- NMH ( Near Airport)</div>
+        <div class="hospital" onclick="showHospitalUpdates('East', 'Hospital 2')">Howrah - Nabanna- NSH ( New One)</div>
+        <div class="hospital" onclick="showHospitalUpdates('East', 'Hospital 1')">Howrah - Chunavati- NMH</div>
+        <div class="hospital" onclick="showHospitalUpdates('East', 'Hospital 2')">Guwahati Amingaon- Hospital</div>
+        <div class="hospital" onclick="showHospitalUpdates('East', 'Hospital 1')">Guwahati Ulubari- Clinic</div>
+        <div class="hospital" onclick="showHospitalUpdates('East', 'Hospital 2')">Chhattisgarh Raipur Pachpedi Naka</div>
+        <div class="hospital" onclick="showHospitalUpdates('East', 'Hospital 1')">Jharkhand Jamshedpur Tamolia- Hospital</div>
+        <div class="hospital" onclick="showHospitalUpdates('East', 'Hospital 2')">Jharkhand Jamshedpur Sakchi- Clinic</div>
+        <div class="hospital" onclick="showHospitalUpdates('East', 'Hospital 1')">Hospital 1</div>
+    
+        <!-- Add more hospitals as needed -->
+    </div>
+
+    <!-- West Zone -->
+    <div class="zone">
+        <h2>West Zone</h2>
+        <div class="hospital" onclick="showHospitalUpdates('West', 'Ahmedabad rakhial Raipur police station - Hospital')">Ahmedabad rakhial Raipur police station - Hospital</div>
+        <!-- <div class="hospital" onclick="showHospitalUpdates('West', 'Ahmedabad rakhial Raipur police station - Hospital')">Ahmedabad rakhial Raipur police station - Hospital</div> -->
+        <!-- Add more hospitals as needed -->
+    </div>
+
+    <!-- North Zone -->
+    <div class="zone">
+        <h2>North Zone</h2>
+        <div class="hospital" onclick="showHospitalUpdates('North', 'Sri Matha Vaishnavi devi Jammu - Katra')">Sri Matha Vaishnavi devi Jammu - Katra</div>
+        <div class="hospital" onclick="showHospitalUpdates('North', 'Jammu - Clinic')">Jammu - Clinic ( Gaji Nursery home near Yes Bank)</div>
+        <div class="hospital" onclick="showHospitalUpdates('North', 'Dharamshila narayana superspeciality hospital')">Dharamshila narayana superspeciality hospital</div>
+        <div class="hospital" onclick="showHospitalUpdates('North', 'Narayana Superspeciality Hospital, Gurugram')">Narayana Superspeciality Hospital, Gurugram</div>
+        <div class="hospital" onclick="showHospitalUpdates('North', 'Rajasthan Jaipur Pratap nagar - Hospital')">Rajasthan Jaipur Pratap nagar - Hospital</div>
+        <!-- Add more hospitals as needed -->
+    </div>
+
+    <!-- South Zone -->
+    <div class="zone">
+        <h2>South Zone</h2>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'NICS')">NICS</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'MSMC')">MSMC</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'MSMC')">E-City Clinic-Neelandri Road -</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'HSR Hospital ( HSR CLUB)')">HSR Hospital ( HSR CLUB)</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'HSR clinic ( BDA Complex)')">HSR clinic ( BDA Complex)</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'NSarajpura - clinicICS')">Sarajpura - clinic</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'Jayanagar - clinic')">Jayanagar - clinic</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'Landford -Shanthinagar')">Landford -Shanthinagar</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'KA Shimoga - Hospital')">KA Shimoga - Hospital</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'KA Shimoga - clinic')">KA Shimoga - clinic</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'KA Mysore - Hospital')">KA Mysore - Hospital</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'KA Mysore - clinic')">KA Mysore - clinic</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'TN Hosur - clinic')">TN Hosur - clinic</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'Kolar')">Kolar</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'Dharwad')">Dharwad</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'Davangere')">Davangere</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'MS Ramaiah')">MS Ramaiah</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'White Field')">White Field</div>
+        <div class="hospital" onclick="showHospitalUpdates('South', 'KA Mysore - HospitalNarayana Clinic, Manipal County')">Narayana Clinic, Manipal County</div>
+        <!-- Add more hospitals as needed -->
+    </div>
+    <div id="update-page">
+        <div id="update-content">
+            <h2>Updates</h2>
+            <!-- Display your existing updates here -->
+            <p>Update 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>Update 2: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <!-- Add more updates as needed -->
+            <button onclick="hideUpdatePage()">Back</button>
+        </div>
+    </div>
+ 
+    <div id="instructions"></div>
+</body>
+
+</html>
